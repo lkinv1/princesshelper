@@ -1,0 +1,373 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Моя Солоденька Владиславочка ❤️</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap');
+
+        :root {
+            --primary-light: #fbe9e7; /* Ніжно-рожевий */
+            --secondary-light: #e0f2f7; /* Світло-блакитний */
+            --accent-purple: #d1c4e9; /* Світло-фіолетовий */
+            --accent-pink: #f8bbd0; /* Більш насичений рожевий */
+            --text-color: #6a1b9a; /* Темно-фіолетовий для тексту */
+            --button-text-color: #7b1fa2; /* Трохи світліший фіолетовий */
+            --soft-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            --border-radius: 25px;
+        }
+
+        body {
+            font-family: 'Comfortaa', cursive;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--secondary-light) 100%);
+            color: var(--text-color);
+            overflow: hidden;
+            position: relative;
+            transition: background 0.8s ease-in-out;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            max-width: 90%;
+            opacity: 1;
+            transform: scale(1);
+            transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+        }
+
+        .question {
+            font-size: 1.8em;
+            margin-bottom: 40px;
+            font-weight: 500;
+            color: var(--button-text-color);
+            text-shadow: 1px 1px 5px rgba(255, 255, 255, 0.7);
+            line-height: 1.4;
+            animation: textFadeIn 2s ease-out forwards;
+        }
+
+        .buttons-group {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            animation: buttonsFadeIn 2.5s ease-out forwards;
+        }
+
+        .action-button {
+            background: linear-gradient(45deg, var(--accent-pink) 0%, var(--accent-purple) 100%);
+            color: white;
+            border: none;
+            padding: 18px 30px;
+            font-family: 'Comfortaa', cursive;
+            font-size: 1.2em;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            box-shadow: var(--soft-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: buttonRise 0.6s ease-out forwards;
+            animation-delay: var(--delay);
+            letter-spacing: 0.5px;
+        }
+
+        .action-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transition: all 0.7s ease;
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 0;
+        }
+
+        .action-button:hover::before {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+
+        .action-button:active {
+            transform: scale(0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Scene Overlay */
+        .scene-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(220, 190, 240, 0.8); /* М'яке фіолетове затемнення */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
+            z-index: 100;
+        }
+
+        .scene-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scene-content {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--soft-shadow);
+            max-width: 80%;
+            text-align: center;
+            transform: scale(0.9);
+            opacity: 0;
+            transition: transform 0.6s ease-out, opacity 0.6s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scene-overlay.active .scene-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .scene-message {
+            font-size: 1.4em;
+            color: var(--button-text-color);
+            margin-bottom: 30px;
+            line-height: 1.5;
+            animation: textGlow 2s infinite alternate;
+        }
+
+        .back-button {
+            background: linear-gradient(45deg, #a79de5 0%, #c4b8f7 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-family: 'Comfortaa', cursive;
+            font-size: 1.1em;
+            border-radius: 20px;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .back-button:active {
+            transform: scale(0.95);
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Particle Effect */
+        .particle {
+            position: absolute;
+            background-color: rgba(255, 200, 220, 0.7); /* Ніжно-рожевий */
+            border-radius: 50%;
+            opacity: 0;
+            animation: floatAndFade 6s infinite ease-in-out;
+            pointer-events: none;
+            filter: blur(2px);
+            z-index: 0;
+        }
+
+        /* Landscape Overlay */
+        .landscape-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #fbe9e7 0%, #e0f2f7 100%);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            font-size: 1.5em;
+            font-weight: 500;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.6s ease-in-out, visibility 0.6s ease-in-out;
+            z-index: 1000;
+        }
+
+        .landscape-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Animations */
+        @keyframes textFadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes buttonsFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes buttonRise {
+            0% { opacity: 0; transform: translateY(20px) scale(0.9); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @keyframes floatAndFade {
+            0% { transform: translateY(0) translateX(0) scale(0.8); opacity: 0; }
+            25% { opacity: 0.6; }
+            50% { transform: translateY(-100px) translateX(20px) scale(1.2); opacity: 0.8; }
+            75% { opacity: 0.4; }
+            100% { transform: translateY(-200px) translateX(0px) scale(0.7); opacity: 0; }
+        }
+
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 5px rgba(255, 255, 255, 0.7); }
+            50% { text-shadow: 0 0 10px var(--accent-pink), 0 0 15px var(--accent-purple); }
+            100% { text-shadow: 0 0 5px rgba(255, 255, 255, 0.7); }
+        }
+
+        /* Glow effect for scene-content */
+        .scene-content::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            right: -20px;
+            bottom: -20px;
+            background: radial-gradient(circle, rgba(255, 240, 245, 0.4) 0%, transparent 70%);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.8s ease-out;
+        }
+        .scene-overlay.active .scene-content::before {
+            opacity: 1;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container" id="main-content">
+        <h1 class="question">Моя маленькая миленькая Владиславочка, что сейчас тебя привело ко мне?</h1>
+        <div class="buttons-group">
+            <button class="action-button" data-scene="sad" style="--delay: 0.2s;">мне грустненько 😔</button>
+            <button class="action-button" data-scene="miss" style="--delay: 0.4s;">я скучаю 🥹</button>
+            <button class="action-button" data-scene="nightmare" style="--delay: 0.6s;">мне приснился кошмар 😭</button>
+        </div>
+    </div>
+
+    <div class="scene-overlay" id="scene-overlay">
+        <div class="scene-content" id="scene-content">
+            <p class="scene-message" id="scene-message"></p>
+            <button class="back-button" id="back-button">Назад</button>
+        </div>
+    </div>
+
+    <div class="landscape-overlay" id="landscape-overlay">
+        В горизонтальне положення ми будемо лежати увві сні — поверни догори :)
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const mainContent = document.getElementById('main-content');
+            const sceneOverlay = document.getElementById('scene-overlay');
+            const sceneContent = document.getElementById('scene-content');
+            const sceneMessage = document.getElementById('scene-message');
+            const backButton = document.getElementById('back-button');
+            const actionButtons = document.querySelectorAll('.action-button');
+            const landscapeOverlay = document.getElementById('landscape-overlay');
+
+            const messages = {
+                sad: "Сонечко, не сумуй, я завжди поруч. Дозволь мені обійняти тебе своїми віртуальними промінчиками тепла. Усе буде добре, ти наймиліша! ❤️",
+                miss: "Моя люба, я теж за тобою сумую! Але навіть коли нас розділяє відстань, наші серця завжди поруч. Подумай про щось гарне, і я буду з тобою. 🫂",
+                nightmare: "Мила, я тут. Жахливий сон – це лише гра уяви, він нічого не може тобі зробити. Ти в безпеці, і я захищу тебе. Просто дихай і відчуй моє тепло. ✨"
+            };
+
+            // Particle effect generation
+            function createParticle() {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                const size = Math.random() * 10 + 5; // 5 to 15px
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${Math.random() * 100}vw`;
+                particle.style.top = `${Math.random() * 100}vh`;
+                particle.style.animationDelay = `${Math.random() * -6}s`; // Stagger animation start
+                document.body.appendChild(particle);
+
+                // Remove particle after animation ends to prevent accumulation
+                particle.addEventListener('animationend', () => {
+                    particle.remove();
+                });
+            }
+
+            // Generate a few particles initially and then periodically
+            for (let i = 0; i < 15; i++) {
+                createParticle();
+            }
+            setInterval(createParticle, 1000); // Create a new particle every 1 second
+
+            actionButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const sceneType = button.dataset.scene;
+                    sceneMessage.textContent = messages[sceneType];
+                    
+                    mainContent.style.opacity = '0';
+                    mainContent.style.transform = 'scale(0.9)';
+                    
+                    setTimeout(() => {
+                        sceneOverlay.classList.add('active');
+                    }, 500); // Затримка для плавного переходу
+                });
+            });
+
+            backButton.addEventListener('click', () => {
+                sceneOverlay.classList.remove('active');
+                
+                setTimeout(() => {
+                    mainContent.style.opacity = '1';
+                    mainContent.style.transform = 'scale(1)';
+                }, 500); // Затримка для плавного повернення
+            });
+
+            // Landscape orientation detection
+            function checkOrientation() {
+                if (window.innerHeight < window.innerWidth) {
+                    // Landscape mode
+                    mainContent.style.opacity = '0';
+                    mainContent.style.pointerEvents = 'none';
+                    sceneOverlay.classList.remove('active'); // Ховаємо сцени теж
+                    landscapeOverlay.classList.add('active');
+                } else {
+                    // Portrait mode
+                    mainContent.style.opacity = '1';
+                    mainContent.style.pointerEvents = 'auto';
+                    landscapeOverlay.classList.remove('active');
+                }
+            }
+
+            window.addEventListener('resize', checkOrientation);
+            checkOrientation(); // Initial check on load
+        });
+    </script>
+</body>
+</html>
+
